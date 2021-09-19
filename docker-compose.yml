@@ -1,23 +1,20 @@
 version: "3.9"
 services:
   redis:
-    image: redis:6.2.5    
+    image: redis
+    ports: 
+      - "6379:6379"
     container_name: redis
   mysql:
-    image: mysql:8.0.26
+    image: mysql
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: neteast
       MYSQL_INITDB_SKIP_TZINFO: "true"
   mycq:
-    build: 
-      context: .
-      dockerfile: ./Dockerfile
-    image: mycq:1.0.1
+    image: youmuu/mycq
     container_name: mycq
-    environment:
-      - 'SPRING_APPLICATION_JSON={"com": {"youmu": {"mysql": "mysql", "redis": "redis"}}}'
     ports:
       - "8080:8080"
     depends_on:
